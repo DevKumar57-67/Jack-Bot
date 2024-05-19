@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat Bot</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .chat-box {
+        height: 300px;
+        overflow-y: auto;
+        padding: 10px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        background-image: linear-gradient(to bottom, #fafafa, #f0f0f0);
+    }
+
+    .user-message,
+    .bot-message {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .message-container {
+        max-width: 70%;
+        padding: 12px;
+        border-radius: 15px;
+        font-size: 14px;
+        position: relative;
+    }
+
+    .user-message .message-container {
+        background-color: #a9dbff;
+        color: #004085;
+    }
+
+    .bot-message .message-container {
+        background-color: #d9d9d9;
+        color: #333;
+    }
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .avatar img {
+        width: 100%;
+        border-radius: 50%;
+    }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+    }
+
+    #user-input {
+        flex: 1;
+        padding: 10px;
+        border-radius: 20px;
+        border: none;
+        outline: none;
+        margin-right: 10px;
+    }
+
+    #send-btn {
+        padding: 10px 20px;
+        border-radius: 20px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #send-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Chat Bot</h1>
+    </div>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="input-container">
+        <input type="text" id="user-input" placeholder="Type your message here...">
+        <button id="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    const responses = [
+        "Hello! How can I assist you today?",
+        "What can I do for you?",
+        "How can I help you?",
+        "I'm here to assist you. What do you need?",
+        "Hey there! What's on your mind?",
+        "Hello! What brings you here?",
+        "Greetings! What can I do for you?",
+        "Hi! How can I assist you?",
+        "Hey! What do you need help with?",
+        "What's up? How can I assist you?"
+    ];
+
+    function sendMessage() {
+        const userInput = document.getElementById("user-input").value;
+        const chatBox = document.getElementById("chat-box");
+        const botResponse = responses[Math.floor(Math.random() * responses.length)];
+
+        const userMessage = document.createElement("div");
+        userMessage.className = "user-message";
+        userMessage.innerHTML = `
+            <div class="avatar">
+                <img src="https://via.placeholder.com/40" alt="User Avatar">
+            </div>
+            <div class="message-container">
+                ${userInput}
+            </div>
+        `;
+
+        const botMessage = document.createElement("div");
+        botMessage.className = "bot-message";
+        botMessage.innerHTML = `
+            <div class="avatar">
+                <img src="https://via.placeholder.com/40" alt="Bot Avatar">
+            </div>
+            <div class="message-container">
+                ${botResponse}
+            </div>
+        `;
+
+        chatBox.appendChild(userMessage);
+        chatBox.appendChild(botMessage);
+
+        document.getElementById("user-input").value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
+</body>
+</html>
